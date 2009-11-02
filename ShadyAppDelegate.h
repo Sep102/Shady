@@ -7,7 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ShadyAppDelegate : NSObject <NSApplicationDelegate> {
+@interface ShadyAppDelegate : NSObject {
     NSWindow *window;
 	float opacity;
 }

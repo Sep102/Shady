@@ -33,7 +33,7 @@
 	[window setReleasedWhenClosed:YES];
 	[window setHidesOnDeactivate:NO];
 	[window setCanHide:NO];
-	[window setCollectionBehavior:NSWindowCollectionBehaviorStationary];
+	[window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
 	[window setIgnoresMouseEvents:YES];
 	
 	self.opacity = DEFAULT_OPACITY;

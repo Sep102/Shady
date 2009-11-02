@@ -232,6 +232,7 @@
 				INFOPLIST_FILE = "Shady-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Shady;
+				SDKROOT = macosx10.5;
 			};
 			name = Release;
 		};
