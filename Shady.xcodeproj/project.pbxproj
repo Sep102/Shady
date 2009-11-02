@@ -14,6 +14,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		C95F6BB8109F5F1000AD93EC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C95F6BB7109F5F1000AD93EC /* Credits.rtf */; };
 		C9711F00109F4572003125E7 /* MGTransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C9711EFF109F4572003125E7 /* MGTransparentWindow.m */; };
+		C9A3A24E109F67E500E483C0 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = C9A3A24C109F67E500E483C0 /* Credits.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		C95F6BB7109F5F1000AD93EC /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		C9711EFE109F4572003125E7 /* MGTransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTransparentWindow.h; sourceTree = "<group>"; };
 		C9711EFF109F4572003125E7 /* MGTransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTransparentWindow.m; sourceTree = "<group>"; };
+		C9A3A24D109F67E500E483C0 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/Credits.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9A3A24C109F67E500E483C0 /* Credits.html */,
 				C95F6BB7109F5F1000AD93EC /* Credits.rtf */,
 				8D1107310486CEB800E47090 /* Shady-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -170,6 +173,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				C95F6BB8109F5F1000AD93EC /* Credits.rtf in Resources */,
+				C9A3A24E109F67E500E483C0 /* Credits.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +207,14 @@
 				1DDD58150DA1D0A300B32029 /* English */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		C9A3A24C109F67E500E483C0 /* Credits.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9A3A24D109F67E500E483C0 /* English */,
+			);
+			name = Credits.html;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
