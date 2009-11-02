@@ -11,6 +11,7 @@
 #define OPACITY_UNIT	0.05; // "20 shades ought to be enough for _anybody_."
 #define DEFAULT_OPACITY	0.4
 #define MAX_OPACITY		0.90 // the darkest the screen can be, where 1.0 is pure black.
+#define KEY_OPACITY		@"" // name of the saved opacity setting
 
 @implementation ShadyAppDelegate
 
@@ -36,10 +37,16 @@
 	[window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
 	[window setIgnoresMouseEvents:YES];
 	
-	self.opacity = DEFAULT_OPACITY;
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:DEFAULT_OPACITY] forKey:KEY_OPACITY]];
+	
+	self.opacity = [defaults floatForKey:KEY_OPACITY];
 	
 	// Put window on screen.
 	[window makeKeyAndOrderFront:self];
+	
+	// Put this app into the background (the shade won't hide due to how its window is set up above).
+	[NSApp hide:self];
 }
 
 
@@ -63,6 +70,10 @@
 	if (normalisedOpacity != opacity) {
 		opacity = normalisedOpacity;
 		[window setBackgroundColor:[NSColor colorWithCalibratedWhite:0.0 alpha:opacity]];
+		
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		[defaults setFloat:opacity forKey:KEY_OPACITY];
+		[defaults synchronize];
 	}
 }
 
