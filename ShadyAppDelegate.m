@@ -43,12 +43,6 @@
 }
 
 
-- (void)keyDown:(NSEvent *)evt
-{
-	NSLog(@"pop");
-}
-
-
 - (IBAction)increaseOpacity:(id)sender
 {
 	// i.e. make screen darker by making our mask less transparent.
