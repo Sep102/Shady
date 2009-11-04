@@ -105,13 +105,15 @@
 
 - (void)applicationActiveStateChanged:(NSNotification *)aNotification
 {
+	[window makeFirstResponder:[window contentView]];
+	[window makeKeyAndOrderFront:self];
+	
 	if (!showsHelpWhenActive && ![NSApp isActive]) {
 		// Enable help text display when active from now on.
 		showsHelpWhenActive = YES;
 		
 	} else if (showsHelpWhenActive) {
 		[self toggleHelpDisplay];
-		[window makeFirstResponder:[window contentView]];
 	}
 }
 
