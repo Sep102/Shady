@@ -13,8 +13,7 @@
                                           backing:NSBackingStoreBuffered 
                                    defer:NO]) {
         
-        [self setLevel:NSScreenSaverWindowLevel];
-        [self setBackgroundColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0]];
+        [self setBackgroundColor:[NSColor clearColor]];
         [self setAlphaValue:1.0];
         [self setOpaque:NO];
         [self setHasShadow:NO];
@@ -24,14 +23,31 @@
 }
 
 
++ (MGTransparentWindow *)windowWithFrame:(NSRect)frame
+{
+	MGTransparentWindow *window = [[self alloc] 
+								   initWithContentRect:frame 
+								   styleMask:NSBorderlessWindowMask 
+								   backing:NSBackingStoreBuffered 
+								   defer:NO];
+	return [window autorelease];
+}
+
+
 - (BOOL)canBecomeKeyWindow
 {
-    return NO;
+    return YES;
 }
 
 - (BOOL)canBecomeMainWindow
 {
-	return NO;
+	return YES;
+}
+
+
+- (void)keyDown:(NSEvent *)event
+{
+	[[self delegate] keyDown:event];
 }
 
 
