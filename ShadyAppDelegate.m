@@ -105,10 +105,14 @@
 
 - (void)applicationActiveStateChanged:(NSNotification *)aNotification
 {
-	[window makeFirstResponder:[window contentView]];
-	[window makeKeyAndOrderFront:self];
+	BOOL appActive = [NSApp isActive];
+	if (appActive) {
+		// Give the window a kick into focus, so we still get key-presses.
+		[window makeFirstResponder:[window contentView]];
+		[window makeKeyAndOrderFront:self];
+	}
 	
-	if (!showsHelpWhenActive && ![NSApp isActive]) {
+	if (!showsHelpWhenActive && !appActive) {
 		// Enable help text display when active from now on.
 		showsHelpWhenActive = YES;
 		
