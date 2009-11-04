@@ -182,11 +182,11 @@
 		helpWindow = [[MGTransparentWindow windowWithFrame:helpFrame] retain];
 		
 		// Configure window.
-		[window setReleasedWhenClosed:YES];
-		[window setHidesOnDeactivate:NO];
-		[window setCanHide:NO];
-		[window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
-		[window setIgnoresMouseEvents:YES];
+		[helpWindow setReleasedWhenClosed:YES];
+		[helpWindow setHidesOnDeactivate:NO];
+		[helpWindow setCanHide:NO];
+		[helpWindow setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+		[helpWindow setIgnoresMouseEvents:YES];
 		
 		// Configure contentView.
 		NSView *contentView = [helpWindow contentView];
