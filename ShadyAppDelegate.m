@@ -46,6 +46,7 @@
 	CALayer *layer = [contentView layer];
 	layer.backgroundColor = CGColorGetConstantColor(kCGColorBlack);
 	layer.opacity = 0;
+	[window makeFirstResponder:contentView];
 	
 	// Only show help text when activated _after_ we've launched and hidden ourselves.
 	showsHelpWhenActive = NO;
@@ -108,7 +109,6 @@
 	BOOL appActive = [NSApp isActive];
 	if (appActive) {
 		// Give the window a kick into focus, so we still get key-presses.
-		[window makeFirstResponder:[window contentView]];
 		[window makeKeyAndOrderFront:self];
 	}
 	
