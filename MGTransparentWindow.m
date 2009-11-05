@@ -3,6 +3,7 @@
 @implementation MGTransparentWindow
 
 
+// Designated initializer.
 - (id)initWithContentRect:(NSRect)contentRect 
                 styleMask:(NSUInteger)aStyle 
                   backing:(NSBackingStoreType)bufferingType 
@@ -23,6 +24,7 @@
 }
 
 
+// Convenience constructor.
 + (MGTransparentWindow *)windowWithFrame:(NSRect)frame
 {
 	MGTransparentWindow *window = [[self alloc] 

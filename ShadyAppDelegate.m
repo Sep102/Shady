@@ -22,6 +22,9 @@
 @synthesize opacitySlider;
 
 
+#pragma mark Setup and Tear-down
+
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	// Create transparent window.
@@ -92,6 +95,9 @@
 }
 
 
+#pragma mark Notifications handlers
+
+
 - (void)applicationDidBecomeActive:(NSNotification *)aNotification
 {
 	[self applicationActiveStateChanged:aNotification];
@@ -120,6 +126,9 @@
 		[self toggleHelpDisplay];
 	}
 }
+
+
+#pragma mark IBActions
 
 
 - (IBAction)showAbout:(id)sender
@@ -154,7 +163,7 @@
 {
 	if ([event window] == window) {
 		unsigned short keyCode = [event keyCode];
-		if (keyCode == 12) { // q
+		if (keyCode == 12 || keyCode == 53) { // q || Esc
 			[NSApp terminate:self];
 			
 		} else if (keyCode == 126) { // up-arrow
@@ -162,9 +171,15 @@
 			
 		} else if (keyCode == 125) { // down-arrow
 			[self increaseOpacity:self];
+			
+		} else {
+			//NSLog(@"keyCode: %d", keyCode);
 		}
 	}
 }
+
+
+#pragma mark Helper methods
 
 
 - (void)toggleHelpDisplay
@@ -214,6 +229,9 @@
 		[[[helpWindow contentView] layer] setOpacity:helpOpacity];
 	}
 }
+
+
+#pragma mark Accessors
 
 
 - (void)setOpacity:(float)newOpacity
