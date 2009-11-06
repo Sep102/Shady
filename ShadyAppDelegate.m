@@ -41,7 +41,7 @@
 	BOOL showsDockIcon = [defaults boolForKey:KEY_DOCKICON];
 	[dockIconCheckbox setState:(showsDockIcon) ? NSOnState : NSOffState];
 	if (showsDockIcon) {
-		// Only set it here if it's YES, since we've just read a saved default and we alway start with no Dock icon.
+		// Only set it here if it's YES, since we've just read a saved default and we always start with no Dock icon.
 		[NSApp setShowsDockIcon:showsDockIcon];
 	}
 	
