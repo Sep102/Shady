@@ -15,18 +15,26 @@
 	NSMenu *statusMenu;
 	NSSlider *opacitySlider;
 	NSStatusItem *statusItem;
+	NSPanel *prefsWindow;
+	NSButton *dockIconCheckbox;
 }
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) float opacity;
 @property (assign) IBOutlet NSMenu *statusMenu;
 @property (assign) IBOutlet NSSlider *opacitySlider;
+@property (assign) IBOutlet NSPanel *prefsWindow;
+@property (assign) IBOutlet NSButton *dockIconCheckbox;
 
 - (IBAction)showAbout:(id)sender;
+- (IBAction)showPreferences:(id)sender;
+- (IBAction)toggleDockIcon:(id)sender;
+
 - (IBAction)increaseOpacity:(id)sender;
 - (IBAction)decreaseOpacity:(id)sender;
 - (IBAction)opacitySliderChanged:(id)sender;
-- (void)toggleHelpDisplay;
+
 - (void)applicationActiveStateChanged:(NSNotification *)aNotification;
+- (void)toggleHelpDisplay;
 
 @end

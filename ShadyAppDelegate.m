@@ -8,11 +8,13 @@
 #import "ShadyAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "MGTransparentWindow.h"
+#import "NSApplication+DockIcon.h"
 
 #define OPACITY_UNIT	0.05; // "20 shades ought to be enough for _anybody_."
 #define DEFAULT_OPACITY	0.4
 #define MAX_OPACITY		0.90 // the darkest the screen can be, where 1.0 is pure black.
 #define KEY_OPACITY		@"ShadySavedOpacityKey" // name of the saved opacity setting
+#define KEY_DOCKICON	@"ShadySavedDockIconKey" // name of the saved dock icon state setting
 
 @implementation ShadyAppDelegate
 
@@ -20,6 +22,8 @@
 @synthesize opacity;
 @synthesize statusMenu;
 @synthesize opacitySlider;
+@synthesize prefsWindow;
+@synthesize dockIconCheckbox;
 
 
 #pragma mark Setup and Tear-down
@@ -27,6 +31,20 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+	// Set the default opacity value and load any saved settings.
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+								[NSNumber numberWithFloat:DEFAULT_OPACITY], KEY_OPACITY,
+								[NSNumber numberWithBool:YES], KEY_DOCKICON,
+								nil]];
+	opacity = 100.0;
+	BOOL showsDockIcon = [defaults boolForKey:KEY_DOCKICON];
+	[dockIconCheckbox setState:(showsDockIcon) ? NSOnState : NSOffState];
+	if (showsDockIcon) {
+		// Only set it here if it's YES, since we've just read a saved default and we alway start with no Dock icon.
+		[NSApp setShowsDockIcon:showsDockIcon];
+	}
+	
 	// Create transparent window.
 	NSRect screensFrame = [[NSScreen mainScreen] frame];
 	for (NSScreen *thisScreen in [NSScreen screens]) {
@@ -50,18 +68,13 @@
 	layer.backgroundColor = CGColorGetConstantColor(kCGColorBlack);
 	layer.opacity = 0;
 	[window makeFirstResponder:contentView];
+	self.opacity = [defaults floatForKey:KEY_OPACITY];
 	
 	// Only show help text when activated _after_ we've launched and hidden ourselves.
 	showsHelpWhenActive = NO;
 	
 	// Put this app into the background (the shade won't hide due to how its window is set up above).
 	[NSApp hide:self];
-	
-	// Set the default opacity value and load any saved value.
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:DEFAULT_OPACITY] forKey:KEY_OPACITY]];
-	opacity = 100.0;
-	self.opacity = [defaults floatForKey:KEY_OPACITY];
 	
 	// Put window on screen.
 	[window makeKeyAndOrderFront:self];
@@ -139,6 +152,13 @@
 }
 
 
+- (IBAction)showPreferences:(id)sender
+{
+	[NSApp activateIgnoringOtherApps:YES];
+	[prefsWindow makeKeyAndOrderFront:self];
+}
+
+
 - (IBAction)increaseOpacity:(id)sender
 {
 	// i.e. make screen darker by making our mask less transparent.
@@ -156,6 +176,16 @@
 - (IBAction)opacitySliderChanged:(id)sender
 {
 	self.opacity = (1.0 - [sender floatValue]);
+}
+
+
+- (IBAction)toggleDockIcon:(id)sender
+{
+	BOOL showsDockIcon = ([sender state] != NSOffState);
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setBool:showsDockIcon forKey:KEY_DOCKICON];
+	[defaults synchronize];
+	[NSApp setShowsDockIcon:showsDockIcon];
 }
 
 
