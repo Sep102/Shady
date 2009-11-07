@@ -10,11 +10,24 @@
 #import "MGTransparentWindow.h"
 #import "NSApplication+DockIcon.h"
 
-#define OPACITY_UNIT	0.05; // "20 shades ought to be enough for _anybody_."
-#define DEFAULT_OPACITY	0.4
-#define MAX_OPACITY		0.90 // the darkest the screen can be, where 1.0 is pure black.
-#define KEY_OPACITY		@"ShadySavedOpacityKey" // name of the saved opacity setting
-#define KEY_DOCKICON	@"ShadySavedDockIconKey" // name of the saved dock icon state setting
+#define OPACITY_UNIT				0.05; // "20 shades ought to be enough for _anybody_."
+#define DEFAULT_OPACITY				0.4
+
+#define STATE_MENU					NSLocalizedString(@"Turn Shady Off", nil) // global status menu-item title when enabled
+#define STATE_MENU_OFF				NSLocalizedString(@"Turn Shady On", nil) // global status menu-item title when disabled
+
+#define HELP_TEXT					NSLocalizedString(@"When Shady is frontmost:\rPress Up/Down to alter shade,\ror press Q to Quit.", nil)
+#define HELP_TEXT_OFF				NSLocalizedString(@"Shady is Off.\rPress S to turn Shady on,\ror press Q to Quit.", nil)
+
+#define STATUS_MENU_ICON			[NSImage imageNamed:@"Shady_Menu_Dark"]
+#define STATUS_MENU_ICON_ALT		[NSImage imageNamed:@"Shady_Menu_Light"]
+#define STATUS_MENU_ICON_OFF		[NSImage imageNamed:@"Shady_Menu_Dark_Off"]
+#define STATUS_MENU_ICON_OFF_ALT	[NSImage imageNamed:@"Shady_Menu_Light_Off"]
+
+#define MAX_OPACITY					0.90 // the darkest the screen can be, where 1.0 is pure black.
+#define KEY_OPACITY					@"ShadySavedOpacityKey" // name of the saved opacity setting.
+#define KEY_DOCKICON				@"ShadySavedDockIconKey" // name of the saved dock icon state setting.
+#define KEY_ENABLED					@"ShadySavedEnabledKey" // name of the saved primary state setting.
 
 @implementation ShadyAppDelegate
 
@@ -24,6 +37,8 @@
 @synthesize opacitySlider;
 @synthesize prefsWindow;
 @synthesize dockIconCheckbox;
+@synthesize stateMenuItemMainMenu;
+@synthesize stateMenuItemStatusBar;
 
 
 #pragma mark Setup and Tear-down
@@ -34,10 +49,12 @@
 	// Set the default opacity value and load any saved settings.
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSNumber numberWithFloat:DEFAULT_OPACITY], KEY_OPACITY,
-								[NSNumber numberWithBool:YES], KEY_DOCKICON,
+								[NSNumber numberWithFloat:DEFAULT_OPACITY], KEY_OPACITY, 
+								[NSNumber numberWithBool:YES], KEY_DOCKICON, 
+								[NSNumber numberWithBool:YES], KEY_ENABLED, 
 								nil]];
-	opacity = 100.0;
+	
+	// Set up Dock icon.
 	BOOL showsDockIcon = [defaults boolForKey:KEY_DOCKICON];
 	[dockIconCheckbox setState:(showsDockIcon) ? NSOnState : NSOffState];
 	if (showsDockIcon) {
@@ -68,6 +85,20 @@
 	layer.backgroundColor = CGColorGetConstantColor(kCGColorBlack);
 	layer.opacity = 0;
 	[window makeFirstResponder:contentView];
+	
+	// Activate statusItem.
+	NSStatusBar *bar = [NSStatusBar systemStatusBar];
+    statusItem = [bar statusItemWithLength:NSSquareStatusItemLength];
+    [statusItem retain];
+    [statusItem setImage:STATUS_MENU_ICON];
+	[statusItem setAlternateImage:STATUS_MENU_ICON_ALT];
+    [statusItem setHighlightMode:YES];
+	[opacitySlider setFloatValue:(1.0 - opacity)];
+    [statusItem setMenu:statusMenu];
+	
+	// Set appropriate initial display state.
+	shadyEnabled = [defaults boolForKey:KEY_ENABLED];
+	[self updateEnabledStatus];
 	self.opacity = [defaults floatForKey:KEY_OPACITY];
 	
 	// Only show help text when activated _after_ we've launched and hidden ourselves.
@@ -78,16 +109,6 @@
 	
 	// Put window on screen.
 	[window makeKeyAndOrderFront:self];
-	
-	// Activate statusItem.
-	NSStatusBar *bar = [NSStatusBar systemStatusBar];
-    statusItem = [bar statusItemWithLength:NSSquareStatusItemLength];
-    [statusItem retain];
-    [statusItem setImage:[NSImage imageNamed:@"Shady_Menu_Dark"]];
-	[statusItem setAlternateImage:[NSImage imageNamed:@"Shady_Menu_Light"]];
-    [statusItem setHighlightMode:YES];
-	[opacitySlider setFloatValue:(1.0 - opacity)];
-    [statusItem setMenu:statusMenu];
 }
 
 
@@ -162,14 +183,18 @@
 - (IBAction)increaseOpacity:(id)sender
 {
 	// i.e. make screen darker by making our mask less transparent.
-	self.opacity = opacity + OPACITY_UNIT;
+	if (shadyEnabled) {
+		self.opacity = opacity + OPACITY_UNIT;
+	}
 }
 
 
 - (IBAction)decreaseOpacity:(id)sender
 {
 	// i.e. make screen lighter by making our mask more transparent.
-	self.opacity = opacity - OPACITY_UNIT;
+	if (shadyEnabled) {
+		self.opacity = opacity - OPACITY_UNIT;
+	}
 }
 
 
@@ -189,6 +214,13 @@
 }
 
 
+- (IBAction)toggleEnabledStatus:(id)sender
+{
+	shadyEnabled = !shadyEnabled;
+	[self updateEnabledStatus];
+}
+
+
 - (void)keyDown:(NSEvent *)event
 {
 	if ([event window] == window) {
@@ -201,6 +233,9 @@
 			
 		} else if (keyCode == 125) { // down-arrow
 			[self increaseOpacity:self];
+			
+		} else if (keyCode == 1) { // s
+			[self toggleEnabledStatus:self];
 			
 		} else {
 			//NSLog(@"keyCode: %d", keyCode);
@@ -242,7 +277,7 @@
 		CGColorRef bgColor = CGColorCreateGenericGray(0.0, 0.6);
 		layer.backgroundColor = bgColor;
 		CGColorRelease(bgColor);
-		layer.string = NSLocalizedString(@"When Shady is frontmost:\rUp/Down to alter shade\rQ to Quit", nil);
+		layer.string = (shadyEnabled) ? HELP_TEXT : HELP_TEXT_OFF;
 		layer.contentsRect = CGRectMake(0, 0, 1, 1.2);
 		layer.fontSize = 40.0;
 		layer.foregroundColor = CGColorGetConstantColor(kCGColorWhite);
@@ -258,6 +293,35 @@
 		float helpOpacity = (([NSApp isActive] ? 1 : 0));
 		[[[helpWindow contentView] layer] setOpacity:helpOpacity];
 	}
+}
+
+
+- (void)updateEnabledStatus
+{
+	// Save state.
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setBool:shadyEnabled forKey:KEY_ENABLED];
+	[defaults synchronize];
+	
+	// Show or hide the shade layer's view appropriately.
+	[[[window contentView] animator] setHidden:!shadyEnabled];
+	
+	// Modify help text shown when we're frontmost.
+	if (helpWindow) {
+		CATextLayer *helpLayer = (CATextLayer *)[[helpWindow contentView] layer];
+		helpLayer.string = (shadyEnabled) ? HELP_TEXT : HELP_TEXT_OFF;
+	}
+	
+	// Update both enable/disable menu-items (in the main menubar and in the NSStatusItem's menu).
+	[stateMenuItemMainMenu setTitle:(shadyEnabled) ? STATE_MENU : STATE_MENU_OFF];
+	[stateMenuItemStatusBar setTitle:(shadyEnabled) ? STATE_MENU : STATE_MENU_OFF];
+	
+	// Update status item's regular and alt/selected images.
+	[statusItem setImage:(shadyEnabled) ? STATUS_MENU_ICON : STATUS_MENU_ICON_OFF];
+	[statusItem setAlternateImage:(shadyEnabled) ? STATUS_MENU_ICON_ALT : STATUS_MENU_ICON_OFF_ALT];
+	
+	// Enable/disable slider.
+	[opacitySlider setEnabled:shadyEnabled];
 }
 
 

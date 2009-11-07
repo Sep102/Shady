@@ -24,6 +24,8 @@
 		C9A3A24E109F67E500E483C0 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = C9A3A24C109F67E500E483C0 /* Credits.html */; };
 		C9B629FC10A200C200A67B48 /* Shady_Menu_Dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B629FA10A200C200A67B48 /* Shady_Menu_Dark.png */; };
 		C9B629FD10A200C200A67B48 /* Shady_Menu_Light.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B629FB10A200C200A67B48 /* Shady_Menu_Light.png */; };
+		C9F3742A10A60E5800025D8B /* Shady_Menu_Dark_Off.png in Resources */ = {isa = PBXBuildFile; fileRef = C9F3742810A60E5800025D8B /* Shady_Menu_Dark_Off.png */; };
+		C9F3742B10A60E5800025D8B /* Shady_Menu_Light_Off.png in Resources */ = {isa = PBXBuildFile; fileRef = C9F3742910A60E5800025D8B /* Shady_Menu_Light_Off.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,6 +68,8 @@
 		C9B629FA10A200C200A67B48 /* Shady_Menu_Dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shady_Menu_Dark.png; sourceTree = "<group>"; };
 		C9B629FB10A200C200A67B48 /* Shady_Menu_Light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shady_Menu_Light.png; sourceTree = "<group>"; };
 		C9B62A0F10A2021100A67B48 /* Shady_Menu_Icons.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Shady_Menu_Icons.psd; sourceTree = "<group>"; };
+		C9F3742810A60E5800025D8B /* Shady_Menu_Dark_Off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shady_Menu_Dark_Off.png; sourceTree = "<group>"; };
+		C9F3742910A60E5800025D8B /* Shady_Menu_Light_Off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shady_Menu_Light_Off.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,16 +153,12 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C9906FA210A4D381003C9798 /* dsa_pub.pem */,
-				C9B62A0F10A2021100A67B48 /* Shady_Menu_Icons.psd */,
-				C9B629FA10A200C200A67B48 /* Shady_Menu_Dark.png */,
-				C9B629FB10A200C200A67B48 /* Shady_Menu_Light.png */,
-				C940E3F510A05A36001EE8BF /* Shady.icns */,
-				C940E40910A05CB6001EE8BF /* Shady_Subdued.icns */,
-				C9A3A24C109F67E500E483C0 /* Credits.html */,
-				8D1107310486CEB800E47090 /* Shady-Info.plist */,
-				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				8D1107310486CEB800E47090 /* Shady-Info.plist */,
+				C9A3A24C109F67E500E483C0 /* Credits.html */,
+				C9F3743C10A614C700025D8B /* Images */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				C9906FA210A4D381003C9798 /* dsa_pub.pem */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -170,6 +170,20 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C9F3743C10A614C700025D8B /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C940E3F510A05A36001EE8BF /* Shady.icns */,
+				C940E40910A05CB6001EE8BF /* Shady_Subdued.icns */,
+				C9B629FA10A200C200A67B48 /* Shady_Menu_Dark.png */,
+				C9B629FB10A200C200A67B48 /* Shady_Menu_Light.png */,
+				C9F3742810A60E5800025D8B /* Shady_Menu_Dark_Off.png */,
+				C9F3742910A60E5800025D8B /* Shady_Menu_Light_Off.png */,
+				C9B62A0F10A2021100A67B48 /* Shady_Menu_Icons.psd */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,6 +239,8 @@
 				C9B629FC10A200C200A67B48 /* Shady_Menu_Dark.png in Resources */,
 				C9B629FD10A200C200A67B48 /* Shady_Menu_Light.png in Resources */,
 				C9906FA310A4D381003C9798 /* dsa_pub.pem in Resources */,
+				C9F3742A10A60E5800025D8B /* Shady_Menu_Dark_Off.png in Resources */,
+				C9F3742B10A60E5800025D8B /* Shady_Menu_Light_Off.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +258,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "set -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nDOWNLOAD_BASE_URL=\"http:/instinctivecode.com/shady/\"\nRELEASENOTES_URL=\"http://instinctivecode.com/shady/release-notes.html#version-$VERSION\"\n\nARCHIVE_FILENAME=\"$PROJECT_NAME $VERSION.zip\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key for Shady\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nditto -ck --keepParent \"$PROJECT_NAME.app\" \"$ARCHIVE_FILENAME\"\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g' | perl -MXML::LibXML -e 'print XML::LibXML->new()->parse_file(\"-\")->findvalue(q(//string[preceding-sibling::key[1] = \"NOTE\"]))') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from keychain; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $VERSION</title>\n\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\necho scp \"'$HOME/code/Shady/build/Release/$ARCHIVE_FILENAME'\" www.instinctivecode.com:shady/\necho scp \"'$WD/appcast.xml'\" www.instinctivecode.com:appcast/shady.xml";
+			shellScript = "set -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nDOWNLOAD_BASE_URL=\"http:/instinctivecode.com/shady\"\nRELEASENOTES_URL=\"http://instinctivecode.com/shady/release-notes.html#version-$VERSION\"\n\nARCHIVE_FILENAME=\"$PROJECT_NAME$VERSION.zip\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key for Shady\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nditto -ck --keepParent \"$PROJECT_NAME.app\" \"$ARCHIVE_FILENAME\"\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g' | perl -MXML::LibXML -e 'print XML::LibXML->new()->parse_file(\"-\")->findvalue(q(//string[preceding-sibling::key[1] = \"NOTE\"]))') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from keychain; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $VERSION</title>\n\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\necho scp \"'$HOME/code/Shady/build/Release/$ARCHIVE_FILENAME'\" www.instinctivecode.com:shady/\necho scp \"'$WD/appcast.xml'\" www.instinctivecode.com:appcasts/shady.xml";
 		};
 /* End PBXShellScriptBuildPhase section */
 
