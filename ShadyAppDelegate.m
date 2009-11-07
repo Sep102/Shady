@@ -185,6 +185,8 @@
 	// i.e. make screen darker by making our mask less transparent.
 	if (shadyEnabled) {
 		self.opacity = opacity + OPACITY_UNIT;
+	} else {
+		NSBeep();
 	}
 }
 
@@ -194,6 +196,8 @@
 	// i.e. make screen lighter by making our mask more transparent.
 	if (shadyEnabled) {
 		self.opacity = opacity - OPACITY_UNIT;
+	} else {
+		NSBeep();
 	}
 }
 
@@ -236,6 +240,9 @@
 			
 		} else if (keyCode == 1) { // s
 			[self toggleEnabledStatus:self];
+			
+		} else if (keyCode == 43) { // ,
+			[self showPreferences:self];
 			
 		} else {
 			//NSLog(@"keyCode: %d", keyCode);
