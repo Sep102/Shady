@@ -10,6 +10,8 @@
 #import "MGTransparentWindow.h"
 #import "NSApplication+DockIcon.h"
 
+#import "Shady.h"
+
 #define OPACITY_UNIT				0.05; // "20 shades ought to be enough for _anybody_."
 #define DEFAULT_OPACITY				0.4
 
