@@ -13,6 +13,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A4899E1113AE889B009E8F3E /* NSApplication+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = A4899E1013AE889B009E8F3E /* NSApplication+Scripting.m */; };
 		C9119049109F74D900EE7B84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9119048109F74D900EE7B84 /* QuartzCore.framework */; };
 		C940E3F610A05A36001EE8BF /* Shady.icns in Resources */ = {isa = PBXBuildFile; fileRef = C940E3F510A05A36001EE8BF /* Shady.icns */; };
 		C940E40A10A05CB6001EE8BF /* Shady_Subdued.icns in Resources */ = {isa = PBXBuildFile; fileRef = C940E40910A05CB6001EE8BF /* Shady_Subdued.icns */; };
@@ -56,6 +57,8 @@
 		7ACE3C4F13AB1CDF00179219 /* Shady.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Shady.sdef; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Shady-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Shady-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Shady.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shady.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4899E0F13AE889B009E8F3E /* NSApplication+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+Scripting.h"; sourceTree = "<group>"; };
+		A4899E1013AE889B009E8F3E /* NSApplication+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+Scripting.m"; sourceTree = "<group>"; };
 		C9119048109F74D900EE7B84 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C940E3F510A05A36001EE8BF /* Shady.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Shady.icns; sourceTree = "<group>"; };
 		C940E40910A05CB6001EE8BF /* Shady_Subdued.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Shady_Subdued.icns; sourceTree = "<group>"; };
@@ -97,6 +100,8 @@
 				C9711EFF109F4572003125E7 /* MGTransparentWindow.m */,
 				C9906E8710A4C2B7003C9798 /* NSApplication+DockIcon.h */,
 				C9906E8810A4C2B7003C9798 /* NSApplication+DockIcon.m */,
+				A4899E0F13AE889B009E8F3E /* NSApplication+Scripting.h */,
+				A4899E1013AE889B009E8F3E /* NSApplication+Scripting.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -281,6 +286,7 @@
 				256AC3DA0F4B6AC300CF3369 /* ShadyAppDelegate.m in Sources */,
 				C9711F00109F4572003125E7 /* MGTransparentWindow.m in Sources */,
 				C9906E8910A4C2B7003C9798 /* NSApplication+DockIcon.m in Sources */,
+				A4899E1113AE889B009E8F3E /* NSApplication+Scripting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

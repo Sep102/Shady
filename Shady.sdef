@@ -5,12 +5,6 @@
 
 	<suite name="Standard Suite" code="????" description="Common classes and commands for all applications.">
 
-		<command name="open" code="aevtodoc" description="Open a document.">
-			<direct-parameter description="The file(s) to be opened.">
-				<type type="file" list="yes"/>
-			</direct-parameter>
-		</command>
-
 		<command name="close" code="coreclos" description="Close a document.">
 			<cocoa class="NSCloseCommand"/>
 			<direct-parameter type="specifier" description="the document(s) or window(s) to close."/>
@@ -89,9 +83,6 @@
 			<element type="window" access="r">
 				<cocoa key="orderedWindows"/>
 			</element>
-			<responds-to name="open">
-				<cocoa method="handleOpenScriptCommand:"/>
-			</responds-to>
 			<responds-to name="quit">
 				<cocoa method="handleQuitScriptCommand:"/>
 			</responds-to>
@@ -156,17 +147,18 @@
 	</suite>
 
 	<suite name="Shady Suite" code="Shdy" description="Classes for Shady.">
-		<cocoa class="ShadyAppDelegate"/>
 
-		<command name="increase opacity" code="ShdyInOp" description="Increase the opacity (decrease screen brightness)">
-		</command>
-		<command name="decrease opacity" code="ShdyDcOp" description="Decrease the opacity (increase brightness)">
-		</command>
+		<command name="increase opacity" code="ShdyInOp" description="Increase the opacity 
+			(decrease screen brightness)"/>
+		
+		<command name="decrease opacity" code="ShdyDcOp" description="Decrease the opacity 
+			(increase screen brightness)"/>
 
-		<class-extension extends="application" description="The Shady application.">
+		<class-extension extends="application" description="The Shady application.">			
 			<responds-to name="increase opacity">
 				<cocoa method="increaseOpacity:"/>
 			</responds-to>
+			
 			<responds-to name="decrease opacity">
 				<cocoa method="decreaseOpacity:"/>
 			</responds-to>
